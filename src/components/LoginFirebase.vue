@@ -118,7 +118,8 @@ export default {
             email: this.email,
             name: this.name,
             surname: this.surname,
-            role: 'user'
+            role: 'user',
+            gastos: []
           };
 
           await set(usersRef, newUser);

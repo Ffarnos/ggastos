@@ -3,7 +3,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Login from '../components/LoginFirebase.vue';
 import {auth} from "@/firebase";
-import HelloWorld from "@/components/HelloWorld.vue";
+import Gastos from "@/components/Gastos.vue";
 
 Vue.use(VueRouter);
 
@@ -12,12 +12,11 @@ const routes = [
     path: '/',
     name: 'Login',
     component: Login,
-    meta: {canPass: true}
   },
   {
     path: '/inicio',
     name: 'Inicio',
-    component: HelloWorld,
+    component: Gastos,
     meta: {requireAuth: true}
   },
 ];
