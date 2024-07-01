@@ -6,6 +6,56 @@
           <v-btn color="primary" @click="openDialog">Agregar Transaccion</v-btn>
         </v-card-title>
           <v-col cols="12" md="4">
+            <v-menu
+                ref="startDateMenu"
+                v-model="startDateMenu"
+                :close-on-content-click="true"
+                min-width="290px"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                    v-model="startDate"
+                    label="Fecha de Inicio"
+                    prepend-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                    clearable
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                  v-model="startDate"
+                  @input="startDateMenu = false"
+              ></v-date-picker>
+            </v-menu>
+          </v-col>
+
+          <v-col cols="12" md="4">
+            <v-menu
+                ref="endDateMenu"
+                v-model="endDateMenu"
+                :close-on-content-click="true"
+                min-width="290px"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                    v-model="endDate"
+                    label="Fecha de Fin"
+                    prepend-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                    clearable
+                ></v-text-field>
+              </template>
+              <v-date-picker
+                  v-model="endDate"
+                  @input="endDateMenu = false"
+              ></v-date-picker>
+            </v-menu>
+          </v-col>
+
+          <v-col cols="12" md="4">
             <v-select
                 v-model="selectedCategory"
                 :items="categories"
@@ -66,7 +116,10 @@ export default {
       dialog: false,
       selectedCategory: null,
       selectedType: null,
-
+      startDate: null,
+      endDate: null,
+      startDateMenu: false,
+      endDateMenu: false,
       currentGasto: {
         name: '',
         amount: '',
@@ -89,13 +142,21 @@ export default {
   computed: {
     filteredGastos() {
       return this.gastos.filter(gasto => {
+        const gastoDate = new Date(gasto.date);
         const matchesCategory = this.selectedCategory
             ? gasto.category === this.selectedCategory
             : true;
         const matchesType = this.selectedType
             ? gasto.type === this.selectedType
             : true;
-        return matchesCategory && matchesType;
+        const matchesStartDate = this.startDate
+            ? gastoDate >= new Date(this.startDate)
+            : true;
+        const matchesEndDate = this.endDate
+            ? gastoDate <= new Date(this.endDate)
+            : true;
+
+        return matchesCategory && matchesType && matchesStartDate && matchesEndDate;
       });
     }
   },
