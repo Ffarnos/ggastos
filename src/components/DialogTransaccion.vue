@@ -68,6 +68,9 @@
 </template>
 
 <script>
+import {auth, database} from "@/firebase";
+import {push, ref as refDB, update} from "firebase/database";
+
 export default {
   props: {
     dialog: {
@@ -99,10 +102,8 @@ export default {
   watch: {
     dialog(val) {
       this.internalDialog = val;
-      if (val && this.gasto.id) {
-        // Ensure the internal data is in sync when dialog is opened in edit mode
+      if (val && this.gasto.id)
         this.gastoInternal = { ...this.gasto };
-      }
     },
     internalDialog(val) {
       this.$emit('update:dialog', val);
@@ -127,12 +128,34 @@ export default {
     saveGasto() {
       const form = this.$refs.form;
       if (form.validate()) {
-        if (this.isEditMode) {
-          this.$emit('update-gasto', { ...this.gastoInternal });
-        } else {
-          this.$emit('save-gasto', { ...this.gastoInternal });
-        }
+        if (this.isEditMode)
+          this.updateGasto(this.gastoInternal)
+        else
+          this.saveGasto(this.gastoInternal)
+
         this.closeDialog();
+      }
+    },
+    async addGasto(gasto) {
+      const user = auth.currentUser;
+      const ref = refDB(database, 'users/' + user.uid + '/gastos');
+      try {
+        await push(ref, { ...gasto });
+        window.dispatchEvent(new Event('update-transacciones'))
+        this.dialog = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updateGasto(gasto) {
+      const user = auth.currentUser;
+      const ref = refDB(database, 'users/' + user.uid + '/gastos/' + gasto.id);
+      try {
+        await update(ref, { ...gasto });
+        window.dispatchEvent(new Event('update-transacciones'))
+        this.dialog = false;
+      } catch (error) {
+        console.log(error);
       }
     },
     resetForm() {
