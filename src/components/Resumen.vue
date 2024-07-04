@@ -1,66 +1,36 @@
 <template>
-  <v-card>
-    <v-card-title class="title-center">Resumen de Movimientos</v-card-title>
-    <v-card-text>
-      <v-row>
-        <v-col cols="12" md="6">
-          <v-card class="summary-card">
-            <v-card-title class="title-center">INGRESOS</v-card-title>
-            <v-card-text>
-              <v-row>
-                <v-col cols="12">
-                  <v-sheet class="summary-sheet" outlined>
-                    <v-icon color="green">mdi-cash</v-icon>
-                    <span>Total: {{ formattedTotalIngresos }}</span>
-                  </v-sheet>
-                  <v-sheet class="summary-sheet" outlined>
-                    <v-icon color="green">mdi-calendar-month</v-icon>
-                    <span>Mensual {{ currentMonthName }}: {{ formattedMensualIngresos }}</span>
-                  </v-sheet>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
-        </v-col>
+  <v-card class="pa-5">
+    <div>
+      <p>
+        INGRESOS
+      </p>
+      <div>
+        <v-sheet class="summary-sheet" outlined>
+          <v-icon color="green">mdi-cash</v-icon>
+          <span>Total: {{ formattedTotalIngresos }}</span>
+        </v-sheet>
+        <v-sheet class="summary-sheet" outlined>
+          <v-icon color="green">mdi-calendar-month</v-icon>
+          <span>Mensual: {{ formattedMensualIngresos }}</span>
+        </v-sheet>
+      </div>
+    </div>
 
-        <v-col cols="12" md="6">
-          <v-card class="summary-card">
-            <v-card-title class="title-center">EGRESOS</v-card-title>
-            <v-card-text>
-              <v-row>
-                <v-col cols="12">
-                  <v-sheet class="summary-sheet" outlined>
-                    <v-icon color="red">mdi-cash-remove</v-icon>
-                    <span>Total: {{ formattedTotalGastos }}</span>
-                  </v-sheet>
-                  <v-sheet class="summary-sheet" outlined>
-                    <v-icon color="red">mdi-calendar-month</v-icon>
-                    <span>Mensual {{ currentMonthName }}: {{ formattedMensualGastos }}</span>
-                  </v-sheet>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
-        </v-col>
-
-        <v-col cols="12">
-          <v-card class="summary-card">
-            <v-card-title class="title-center">Categorias de gastos</v-card-title>
-            <v-card-text>
-              <v-row>
-                <v-col v-for="category in categorizedGastos" :key="category.name" cols="12" md="4">
-                  <v-sheet class="category-sheet" outlined>
-                    <v-icon color="blue">{{ category.icon }}</v-icon>
-                    <span>{{ category.name }}: {{ category.total }}</span>
-                  </v-sheet>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-card-text>
-
+    <div>
+      <p>
+        EGRESOS
+      </p>
+      <div>
+        <v-sheet class="summary-sheet" outlined>
+          <v-icon color="green">mdi-cash</v-icon>
+          <span>Total: {{ formattedTotalGastos }}</span>
+        </v-sheet>
+        <v-sheet class="summary-sheet" outlined>
+          <v-icon color="green">mdi-calendar-month</v-icon>
+          <span>Mensual: {{ formattedMensualGastos }}</span>
+        </v-sheet>
+      </div>
+    </div>
   </v-card>
 </template>
 
@@ -158,27 +128,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.title-center {
-  text-align: center;
-}
-
-.summary-card {
-  margin-bottom: 20px;
-}
-
 .summary-sheet {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
+  padding: 20px 10px;
   margin-bottom: 10px;
+  gap: 2px
 }
 
-.category-sheet {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  margin-bottom: 10px;
-}
 </style>
