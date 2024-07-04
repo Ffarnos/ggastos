@@ -3,7 +3,10 @@
     <div class="container">
       <div class="card-wrapper">
         <div>
-          <p class="title">GGASTOS</p>
+          <div class="title-text">GGASTOS</div>
+          <img
+              :width="200"
+              :src="logo" alt=""/>
           <div class="container-center">
           </div>
 
@@ -60,6 +63,7 @@ import { auth, database } from '@/firebase';
 import { sendPasswordResetEmail, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getDatabase, ref as dbRef, set, get } from 'firebase/database';
 import { ref } from 'firebase/database';
+import logo from '../assets/ggastosLogo.png'
 
 export default {
   components: {
@@ -72,7 +76,8 @@ export default {
       surname: "",
       error: "",
       register: "",
-      sendPasswordMail: false
+      sendPasswordMail: false,
+      logo
     };
   },
   created() {
@@ -153,10 +158,11 @@ export default {
 </script>
 
 <style>
-.title {
-  font-size: 1.5rem;
+.title-text {
+  font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1rem;
+  text-align: center;
 }
 .container {
   display: flex;
@@ -168,7 +174,7 @@ export default {
 
 .card-wrapper {
   width: 70%;
-  max-width: 400px;
+  max-width: 500px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
@@ -240,6 +246,7 @@ export default {
 .card-wrapper p {
   margin-top: 1rem;
   font-size: 0.9rem;
+  text-align: center;
 }
 
 .card-wrapper a {
@@ -249,7 +256,7 @@ export default {
 }
 
 .card-wrapper a:hover {
-  color: #0056b3;
+  color: #0161c5;
 }
 
 .password-reset-container {

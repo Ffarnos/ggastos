@@ -131,7 +131,7 @@ export default {
         if (this.isEditMode)
           this.updateGasto(this.gastoInternal)
         else
-          this.saveGasto(this.gastoInternal)
+          this.addGasto(this.gastoInternal)
 
         this.closeDialog();
       }

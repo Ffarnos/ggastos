@@ -3,7 +3,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Login from '../components/LoginFirebase.vue';
 import {auth} from "@/firebase";
-import Gastos from "@/components/Dashboard.vue";
+import Dashboard from "@/components/Dashboard.vue";
 
 
 Vue.use(VueRouter);
@@ -17,7 +17,7 @@ const routes = [
   {
     path: '/inicio',
     name: 'Inicio',
-    component: Gastos,
+    component: Dashboard,
     meta: {requireAuth: true}
   },
 ];
