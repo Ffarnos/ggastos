@@ -49,16 +49,6 @@ const gastos = ref([]);
 const currentMonth = new Date().getMonth();
 const currentYear = new Date().getFullYear();
 
-const currentMonthName = new Intl.DateTimeFormat('es-ES', { month: 'long' }).format(new Date());
-
-const categories = [
-  { name: 'Comida', icon: 'mdi-food' },
-  { name: 'Diversion', icon: 'mdi-movie' },
-  { name: 'Deporte', icon: 'mdi-basketball' },
-  { name: 'Salud', icon: 'mdi-hospital' },
-  { name: 'Educación', icon: 'mdi-school' },
-];
-
 const formatNumber = (number) => {
   return new Intl.NumberFormat('es-AR', { maximumFractionDigits: 2 }).format(number);
 };
@@ -67,18 +57,6 @@ const formattedTotalIngresos = computed(() => formatNumber(totalIngresos.value))
 const formattedMensualIngresos = computed(() => formatNumber(mensualIngresos.value));
 const formattedTotalGastos = computed(() => formatNumber(totalGastos.value));
 const formattedMensualGastos = computed(() => formatNumber(mensualGastos.value));
-
-const categorizedGastos = computed(() => {
-  return categories.map(category => {
-    const total = gastos.value
-        .filter(gasto => gasto.category === category.name)
-        .reduce((sum, item) => sum + Number(item.amount), 0);
-    return {
-      ...category,
-      total: formatNumber(total)
-    };
-  });
-});
 
 const updateResumen = async () => {
   const user = auth.currentUser;

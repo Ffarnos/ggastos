@@ -70,14 +70,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.category-sheet {
-  display: flex;
-  align-items: center;
-  padding: 20px 10px;
-  margin-bottom: 10px;
-  gap: 2px
-}
-
 .categoria {
   display: flex;
   flex-direction: row;
